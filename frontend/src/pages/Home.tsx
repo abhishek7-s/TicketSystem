@@ -3,12 +3,13 @@ import axiosInstance from '../api/axios';
 import { useAuth } from '../hooks/useAuth';
 import './scss/home.scss'
 import { Navigate, useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Home() {
   const [events, setEvents] = useState([])
   const { user } = useAuth();
   const today = new Date();
-
+  
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -28,7 +29,8 @@ function Home() {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
-        alert('You need to be logged in to book an event');
+        // alert('You need to be logged in to book an event');
+        toast.warning("You need to be logged in to book an event")
         return;
       }
 
@@ -42,11 +44,13 @@ function Home() {
       );
 
       if (response.status === 201) {
-        alert('Booking successful');
+        toast.success("Booking successful")
+        // alert('Booking successful');
       }
     } catch (error) {
+      toast.error("Booking Failed")
       console.error('Error booking the event:', error);
-      alert('Failed to book the event');
+      // alert('Failed to book the event');
     }
   };
 
@@ -54,6 +58,7 @@ function Home() {
 
   return (
     <div className="home">
+      <ToastContainer />
       <h1 className="home__title">Upcoming Events</h1>
       {events.length === 0 ? (
         <p className="home__no-events">No events available</p>
@@ -61,8 +66,13 @@ function Home() {
         <div className="event-grid">
           {events.map((event: any) => (
             <div className="event-card" key={event.eid}>
+              <div className='event-cover'>
+                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s'></img>
+                
+              </div>
               <h3 className="event-card__title">{event.event_name}</h3>
               <p><strong>Venue:</strong> {event.venue}</p>
+              <p><strong>Intake:</strong> {event.intake}</p>
               <p><strong>Vacancy:</strong> {event.vacancy}</p>
               <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
 

@@ -11,6 +11,7 @@ import MyBookings from './pages/MyBookings'
 import AddEvent from './pages/AddEvent'
 import Bookings from './pages/bookings'
 
+
 function App() {
   return (
     <BrowserRouter>

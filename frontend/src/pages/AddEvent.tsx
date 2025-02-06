@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import axiosInstance from '../api/axios';
 import './scss/addEvent.scss'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
 function AddEvent() {
   const [eventName, setEventName] = useState<string>('');
   const [venue, setVenue] = useState<string>('');
@@ -10,6 +14,7 @@ function AddEvent() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +40,7 @@ function AddEvent() {
         setVenue('');
         setVacancy('');
         setDate('');
+        toast.success("Event Added")
       }
     } catch (err) {
       console.error('Error adding event:', err);
@@ -44,6 +50,8 @@ function AddEvent() {
 
   return (
     <div className="add-event">
+      <ToastContainer />
+      
       <h2 className="add-event__title">Add New Event</h2>
 
       {error && <div className="add-event__error">{error}</div>}
