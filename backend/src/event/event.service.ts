@@ -27,11 +27,16 @@ export class EventService {
         return info
     }
 
-    async addEvent(data : EventDto){
+    async addEvent(data : EventDto, file : Express.Multer.File){
+        if (!file) {
+            throw new Error('Cover image is required');
+        }
+
         await this.eventModel.create({
             event_name : data.event_name,
             intake : data.intake,
             vacancy: data.vacancy,
+            coverImageUrl: `/uploads/events/${file.filename}`,
             venue: data.venue,
             date : data.date
         })
@@ -44,5 +49,11 @@ export class EventService {
             where: {eid : id}
         })    
         return "deleted event"
+    }
+
+
+    async uploadImage(file){
+        console.log('file :>> ', file);
+        return "FILE UPLOAD API";
     }
 }

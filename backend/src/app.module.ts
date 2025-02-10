@@ -7,6 +7,7 @@ import { BookingModule } from './booking/booking.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Sequelize } from 'sequelize-typescript';
 import { AuthModule } from './auth/auth.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -26,6 +27,11 @@ import { AuthModule } from './auth/auth.module';
       autoLoadModels: true,
       synchronize: true, // Set to false in production
     }),
+
+    // MulterModule.register({
+    //   dest: './uploads'
+    // }),
+
     EventModule,
     UserModule,
     BookingModule,

@@ -67,8 +67,7 @@ function Home() {
           {events.map((event: any) => (
             <div className="event-card" key={event.eid}>
               <div className='event-cover'>
-                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtnvAOajH9gS4C30cRF7rD_voaTAKly2Ntaw&s'></img>
-                
+                <img src={`http://localhost:3000${event.coverImageUrl}`}></img>
               </div>
               <h3 className="event-card__title">{event.event_name}</h3>
               <p><strong>Venue:</strong> {event.venue}</p>

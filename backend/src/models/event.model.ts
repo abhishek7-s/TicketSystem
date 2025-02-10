@@ -19,6 +19,9 @@ export class Event extends Model {
   @Column
   venue: string;
 
+  @Column
+  coverImageUrl: string;
+
   @Column({ type: DataType.DATEONLY, allowNull: false })
   date: Date;
 
